@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Precision Crop Protection Lab</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .logo {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+    .heading {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .upload-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .upload-button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      background-color: #3f51b5;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .image-preview {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .image-title {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="C:\Users\mm17889\PrecisionCropProtection.github.io\assets\logos\UnivOfGeorgia.png" alt="Logo" class="logo">
+  <h1 class="heading">Precision Crop Protection Lab</h1>
+  <div class="upload-container">
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    <button class="upload-button" onclick="document.getElementById('fileInput').click()">Upload Picture</button>
+    <p class="image-title"></p>
+    <img src="" alt="Uploaded Image" class="image-preview">
+  </div>
+  <button class="submit-button" disabled>Submit</button>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const imagePreview = document.querySelector('.image-preview');
+    const imageTitle = document.querySelector('.image-title');
+    const submitButton = document.querySelector('.submit-button');
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          imagePreview.src = e.target.result;
+          imageTitle.textContent = `Uploaded Image: ${file.name}`;
+          submitButton.disabled = false;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.src = "";
+        imageTitle.textContent = "";
+        submitButton.disabled = true;
+      }
+    });
+  </script>
+</body>
+
+</html>
 
