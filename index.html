@@ -8,18 +8,19 @@
   <style>
     body {
       background-color: white;
-      font-family: sans-serif;
-      margin: 0;
+      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      margin: 0;
+      padding: 0;
     }
 
     .logo {
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: auto;
       margin-bottom: 20px;
     }
 
@@ -27,6 +28,7 @@
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 20px;
+      color: #3f51b5; /* Modern heading color */
     }
 
     .upload-container {
@@ -35,8 +37,9 @@
       align-items: center;
     }
 
-    .upload-button {
-      background-color: #4CAF50;
+    .upload-button,
+    .submit-button {
+      background-color: #3f51b5; /* Modern button color */
       border: none;
       color: white;
       padding: 10px 20px;
@@ -46,30 +49,44 @@
       font-size: 16px;
       margin-bottom: 10px;
       cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth transition */
     }
 
-    .submit-button {
-      background-color: #3f51b5;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
+    .upload-button:hover,
+    .submit-button:hover {
+      background-color: #303f9f; /* Darker color on hover */
     }
 
     .image-preview {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      object-fit: contain;
       margin-bottom: 20px;
+      display: none; /* Initially hidden */
     }
 
     .image-title {
       font-size: 14px;
       margin-bottom: 10px;
+      display: none; /* Initially hidden */
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    input[type="file"] + label {
+      background-color: #3f51b5; /* Modern button color */
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+    input[type="file"] + label:hover {
+      background-color: #303f9f; /* Darker color on hover */
     }
   </style>
 </head>
@@ -78,8 +95,8 @@
   <img src="C:\Users\mm17889\PrecisionCropProtection.github.io\assets\logos\UnivOfGeorgia.png" alt="Logo" class="logo">
   <h1 class="heading">Precision Crop Protection Lab</h1>
   <div class="upload-container">
-    <input type="file" id="fileInput" accept="image/*" style="display: none;">
-    <button class="upload-button" onclick="document.getElementById('fileInput').click()">Upload Picture</button>
+    <input type="file" id="fileInput" accept="image/*">
+    <label for="fileInput" class="upload-button">Upload Picture</label>
     <p class="image-title"></p>
     <img src="" alt="Uploaded Image" class="image-preview">
   </div>
@@ -98,14 +115,18 @@
 
         reader.onload = (e) => {
           imagePreview.src = e.target.result;
+          imagePreview.style.display = 'block'; // Show image preview
           imageTitle.textContent = `Uploaded Image: ${file.name}`;
+          imageTitle.style.display = 'block'; // Show image title
           submitButton.disabled = false;
         };
 
         reader.readAsDataURL(file);
       } else {
         imagePreview.src = "";
+        imagePreview.style.display = 'none'; // Hide image preview
         imageTitle.textContent = "";
+        imageTitle.style.display = 'none'; // Hide image title
         submitButton.disabled = true;
       }
     });
@@ -113,4 +134,3 @@
 </body>
 
 </html>
-
